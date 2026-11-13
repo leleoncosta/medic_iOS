@@ -42,7 +42,7 @@ jobs:
           set -o pipefail
           mkdir -p snapshots build
           xcodebuild test \
-            -scheme MedicDesignSystem-Package \
+            -scheme MedicDesignSystem \
             -destination "id=${{ steps.sim.outputs.udid }}" \
             -resultBundlePath build/Tests.xcresult \
             2>&1 | tee build/xcodebuild.log
