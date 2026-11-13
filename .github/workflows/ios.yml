@@ -44,6 +44,17 @@ jobs:
             -resultBundlePath build/Tests.xcresult \
             | tee build/xcodebuild.log
 
+      - name: Resumir erros do build (anotação pública)
+        if: failure()
+        run: |
+          {
+            grep -E "error:|\*\* (BUILD|TEST) FAILED|Test Case .* failed|failed:|Fatal error" build/xcodebuild.log | awk '!seen[$0]++' | head -40
+            echo "--- fim do log ---"
+            tail -n 15 build/xcodebuild.log
+          } > build/errors.txt || true
+          MSG=$(sed -e 's/%/%25/g' -e 's/\r//g' build/errors.txt | awk '{printf "%s%%0A", $0}')
+          echo "::error title=Erros do xcodebuild::${MSG}"
+
       - name: Publicar imagens dos componentes
         if: always()
         uses: actions/upload-artifact@v4
