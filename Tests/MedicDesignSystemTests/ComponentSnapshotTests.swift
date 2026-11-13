@@ -154,6 +154,8 @@ final class ComponentSnapshotTests: XCTestCase {
                 MedicEmptyState("Nenhum paciente", message: "Quando houver pacientes, eles aparecem aqui.", actionTitle: "Adicionar") {}
                 MedicEmptyState("Sem resultados", message: "Tente outra busca.", systemImage: "magnifyingglass", size: .compact)
             }
+            // O círculo do ícone usa surface/secondary: sobre o fundo padrão do teste ele some.
+            .background(MedicColor.surfacePrimary)
         }
     }
 

@@ -53,8 +53,14 @@ struct MedicSwitchStyle: ToggleStyle {
                 .frame(width: 51, height: 31)
                 .animation(.easeInOut(duration: MedicMotion.durationQuick), value: configuration.isOn)
             }
-            .buttonStyle(.plain)
+            .buttonStyle(MedicUndimmedButtonStyle())
             .accessibilityValue(configuration.isOn ? "Ligado" : "Desligado")
         }
     }
+}
+
+/// `.plain` escurece o botão quando desabilitado, o que somaria ao trilho já desabilitado
+/// (o Figma mantém o knob branco). Este estilo não altera a aparência.
+struct MedicUndimmedButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View { configuration.label }
 }
