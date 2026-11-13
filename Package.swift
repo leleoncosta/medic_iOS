@@ -10,6 +10,7 @@ let package = Package(
         .library(name: "MedicDesignSystem", targets: ["MedicDesignSystem"])
     ],
     targets: [
-        .target(name: "MedicDesignSystem")
+        .target(name: "MedicDesignSystem"),
+        .testTarget(name: "MedicDesignSystemTests", dependencies: ["MedicDesignSystem"])
     ]
 )

@@ -1,0 +1,61 @@
+name: iOS
+
+# Compila o pacote para o simulador do iOS, roda os testes e publica as imagens dos
+# componentes (claro e escuro) como artefato, para comparar com o Figma sem precisar de um Mac.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-snapshot:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Versões e simuladores disponíveis
+        run: |
+          xcodebuild -version
+          swift --version
+          xcrun simctl list devices available | head -40
+
+      - name: Escolher um simulador de iPhone
+        id: sim
+        run: |
+          UDID=$(xcrun simctl list devices available | grep -m1 'iPhone' | sed -E 's/.*\(([0-9A-F-]{36})\).*/\1/')
+          if [ -z "$UDID" ]; then echo "Nenhum simulador de iPhone encontrado"; exit 1; fi
+          echo "udid=$UDID" >> "$GITHUB_OUTPUT"
+          echo "Simulador: $UDID"
+
+      - name: Esquemas do pacote
+        run: xcodebuild -list
+
+      - name: Compilar e testar
+        env:
+          TEST_RUNNER_SNAPSHOT_DIR: ${{ github.workspace }}/snapshots
+        run: |
+          set -o pipefail
+          mkdir -p snapshots build
+          xcodebuild test \
+            -scheme MedicDesignSystem-Package \
+            -destination "id=${{ steps.sim.outputs.udid }}" \
+            -resultBundlePath build/Tests.xcresult \
+            | tee build/xcodebuild.log
+
+      - name: Publicar imagens dos componentes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: component-snapshots
+          path: snapshots
+          if-no-files-found: warn
+
+      - name: Publicar log e resultado dos testes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: build
+          if-no-files-found: warn
