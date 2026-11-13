@@ -51,21 +51,31 @@ powershell -ExecutionPolicy Bypass -File tools/generate-tokens.ps1
 | `MedicSpinner` | Spinner `3011:21` | Size (Small 20, Large 37); gira, e para com "Reduzir Movimento" |
 | `MedicSkeleton` | Skeleton `3014:14` | Type (Line, Avatar, Block, Row); estático |
 | `MedicEmptyState` | Empty State `3004:28` | Size (Large, Compact), ícone opcional, mensagem, ação opcional |
+| `MedicSegmentedPicker` | SegmentedPicker `2611:5973` | 2 a 4 opções, segmento selecionado, versão "+ Nav" (`onNavigationBar`) |
+| `MedicPillButton` | Pill Button `135:1527` | Type (uma ou duas linhas), State (Selected), Interaction (Pressed automático, Disabled via `.disabled`) |
+| `MedicSearchField` | SearchField `10:915` | Type (Default, Cancel via `onCancel`), ícone à direita opcional |
+| `MedicSlider` | Slider `10:3772` | Icons (False, True via `minimumValueImage`/`maximumValueImage`) |
+| `MedicSelect` | Select `71:1217` | Selected (False, True), State (Disabled via `.disabled`); só o indicador de 22 pt |
+| `MedicPagination` | Pagination `71:1086` | Número de páginas e página atual |
 
 ## O que NÃO está coberto (decisões e pendências)
 
 - **Slide Action do TableRow** (Delete, Action): use `.swipeActions` do SwiftUI em `List`.
 - **Barra de status e Home Indicator**: são do sistema iOS. TopNavigation e TabBar respeitam a safe area.
-- **Segmented do TopNavigation**: o componente SegmentedPicker ainda não foi convertido; entra pelo slot `bottom`.
+- **Segmented do TopNavigation**: entra pelo slot `bottom` com `MedicSegmentedPicker(..., onNavigationBar: true)`.
 - **Padding inferior do TopNavigation**: no Figma varia de 6 a 9 pt por variante; o código usa 6 (`space3`).
-- **Cor do placeholder e do ícone do campo de busca** (dentro do TopNavigation): não vem como token no Figma lido; usei `color-translucent/text-secondary`. Conferir.
+- **Busca do TopNavigation**: usa `MedicSearchField` com fundo `surface/primary`; lupa e texto de apoio em `color-translucent/text-secondary` (lido no Figma).
+- **Tokens translúcidos**: o alfa já está no token (`translucent/*`). O Figma mostra "@70" ou "@40" ao lado, mas é o mesmo alfa, aplicado uma vez (medido no render do Figma). Não aplique `.opacity` por cima.
 - **Tamanho dos ícones**: 22 pt em todos (glifo SF Pro do Figma). Se o visual divergir no app, ajuste em `MedicIcon`.
-- **Chevron do TableRow**: no Figma é `color-translucent/divider` com opacidade 40% aplicada na instância; replicado como está.
 - **Dynamic Type**: os estilos usam tamanho fixo, como no Figma.
 - **iOS mínimo**: 16 (escolha do assistente; `Package.swift`).
-- **Checkbox/Radio**: a camada Pressed Overlay cobre só a caixa de 22 pt (medido no Figma), com 15% de opacidade. O check e o traço usam as medidas do Figma (traço de 2 pt, pontas arredondadas).
+- **Checkbox/Radio**: a camada Pressed Overlay cobre só a caixa de 22 pt (medido no Figma), com o alfa do token `state-pressed-overlay`. O check e o traço usam as medidas do Figma (traço de 2 pt, pontas arredondadas).
 - **Spinner**: a rotação (1 s por volta, contínua) é decisão do código; o Figma é estático e o UIActivityIndicator gira em passos.
 - **Empty State**: o texto é centralizado (alinhamento não lido no Figma).
 - **Switch**: sombras do knob convertidas do blur do Figma para o raio do SwiftUI (blur ÷ 2).
 - **Code Connect (Figma → SwiftUI)**: os 13 componentes da tabela acima estão mapeados no Figma (rótulo SwiftUI) para os arquivos deste repositório. O mapeamento é simples (componente → arquivo); ainda não há template com as propriedades. Os ícones não têm mapeamento individual (correspondem a `MedicIcon`).
-- Sem elevação (sombras `Elevation/*`) e sem os demais componentes do Figma (SegmentedPicker, Select, Pill Button, Alerts, Action Sheet, Calendar, Keyboard etc.).
+- **Pagination**: no Figma a cor da bolinha é fixa por posição (a 2ª é sempre `icon/brand`) e só a opacidade segue a página atual, o que parece um defeito do desenho. O código usa `icon/brand` na página atual e `pagination-inactive` a 30% nas outras. Confirmar com o design.
+- **SegmentedPicker**: o segmento selecionado usa `surface/primary` (como na instância do Figma; o componente interno usa `surface/elevated`). As divisórias entre segmentos não selecionados seguem o padrão do iOS (estão ocultas no componente do Figma). Os tipos "Two Lines" da opção não foram implementados.
+- **Select**: o check usa o SF Symbol `checkmark` em branco (o desenho vetorial do Figma não foi reproduzido); o anel mede ~1,6 pt.
+- **Pill Button**: título em Semibold quando selecionado ou com duas linhas; as sombras seguem o Figma (preto 25%, y 4, blur 4).
+- Sem elevação (sombras `Elevation/*`) e sem os demais componentes do Figma (Alerts, Action Sheet, Contextual Menu, Notification, Messages, Date Picker, FaceID, Custom Card, Keyboard etc.).

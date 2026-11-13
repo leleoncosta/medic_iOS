@@ -40,7 +40,7 @@ public struct MedicTableRow<Leading: View>: View {
     }
 
     private var secondaryColor: Color {
-        isEnabled ? MedicColor.translucentTextStrong.opacity(0.7) : MedicColor.textDisabled
+        isEnabled ? MedicColor.translucentTextStrong : MedicColor.textDisabled
     }
 
     private var titleColor: Color {
@@ -68,7 +68,7 @@ public struct MedicTableRow<Leading: View>: View {
                 }
                 if showChevron {
                     Image(systemName: "chevron.right").font(.system(size: 22))
-                        .foregroundStyle(MedicColor.translucentDivider.opacity(0.4))
+                        .foregroundStyle(MedicColor.translucentDivider)
                 }
             }
             .padding(.trailing, spacing.paddingScreenHorizontal)

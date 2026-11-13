@@ -8,7 +8,7 @@ import SwiftUI
 /// - Default: `title` (+ `backTitle`/`onBack` e `trailing`)
 /// - Large Title: `largeTitle`
 /// - Search: `search` (campo de busca)
-/// - Segmented: `bottom` (ex.: SegmentedPicker; o componente ainda não existe neste pacote)
+/// - Segmented: `bottom` (ex.: `MedicSegmentedPicker(..., onNavigationBar: true)`)
 ///
 /// Ao passar só um dos blocos, use o rótulo: `trailing: { ... }` ou `bottom: { ... }`
 /// (a closure final sem rótulo é ambígua entre os dois).
@@ -96,16 +96,8 @@ public struct MedicTopNavigation<Trailing: View, Bottom: View>: View {
     }
 
     private func searchField(_ text: Binding<String>) -> some View {
-        HStack(spacing: spacing.gapStackXs) {
-            Image(systemName: "magnifyingglass").font(.system(size: 17))
-            TextField("", text: text, prompt: Text(searchPlaceholder))
-                .medicText(.bodyRegular)
-                .foregroundStyle(MedicColor.textPrimary)
-        }
-        .foregroundStyle(MedicColor.translucentTextSecondary)
-        .padding(.horizontal, spacing.paddingComponentSm)
-        .frame(height: 36)
-        .background(MedicColor.surfacePrimary, in: RoundedRectangle(cornerRadius: spacing.radiusKit10))
+        // No Figma a busca da barra usa `surface/primary` no lugar do preenchimento translúcido.
+        MedicSearchField(text: text, placeholder: searchPlaceholder, background: MedicColor.surfacePrimary)
     }
 }
 

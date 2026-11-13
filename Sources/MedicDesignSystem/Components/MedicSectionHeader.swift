@@ -29,7 +29,7 @@ public struct MedicSectionHeader: View {
             case .grouped:
                 Text(title.uppercased())
                     .medicText(.caption1Regular)
-                    .foregroundStyle(MedicColor.translucentTextStrong.opacity(0.7))
+                    .foregroundStyle(MedicColor.translucentTextStrong)
                     .frame(maxWidth: .infinity, alignment: .leading)
             case .prominent:
                 Text(title)

@@ -58,7 +58,7 @@ struct MedicSelectionControl: View {
             shape.fill(fill)
             if let stroke { shape.strokeBorder(stroke.color, lineWidth: stroke.width) }
             glyph
-            if isPressed { shape.fill(MedicColor.translucentStatePressedOverlay.opacity(0.15)) }
+            if isPressed { shape.fill(MedicColor.translucentStatePressedOverlay) }
         }
         .frame(width: 22, height: 22)
     }

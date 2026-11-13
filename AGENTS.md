@@ -45,6 +45,12 @@ Itens `kit-*` (ex.: `radiusKit10`) vêm do UI kit da Apple; use só onde o Figma
 | `MedicSpinner(size: .small/.large)` | Espera sem forma definida |
 | `MedicSkeleton(.line/.avatar/.block/.row)` | Carregamento com forma conhecida |
 | `MedicEmptyState("Título", message:, systemImage:, size: .large/.compact, actionTitle:, action:)` | Sem conteúdo |
+| `MedicSegmentedPicker(options: [String], selection: $index, onNavigationBar:)` | Visões do mesmo conteúdo (2 a 4 opções aqui) |
+| `MedicPillButton("Filtro", subtitle:, isSelected:) { }` | Filtro/categoria (não é ação) |
+| `MedicSearchField(text:, placeholder:, trailingSystemImage:, onCancel:)` | Busca |
+| `MedicSlider(value:, in:, minimumValueImage:, maximumValueImage:, label:)` | Valor contínuo |
+| `MedicSelect(isSelected:)` | Indicador de seleção em círculo (leading de linha) |
+| `MedicPagination(numberOfPages:, currentPage:)` | Indicador de páginas |
 
 Estados (Pressed, Focus, Disabled) são automáticos ou vêm de `.disabled(true)`; não os desenhe à mão.
 Slide Action de linha: use `.swipeActions` do SwiftUI (o `MedicTableRow` não o inclui).
@@ -68,8 +74,8 @@ Slide Action de linha: use `.swipeActions` do SwiftUI (o `MedicTableRow` não o 
 
 ## Lacunas (não existem neste pacote; não improvise com o mesmo nome)
 
-Alert, Action Sheet, Contextual Menu, Notification, Messages, Date Picker/Calendar, FaceID, Custom Card, Pill Button,
-SegmentedPicker, SearchField avulso, Slider, Select, Pagination, Keyboard, Elevation (sombras `Elevation/*`).
+Alert, Action Sheet, Contextual Menu, Notification, Messages, Date Picker/Calendar, FaceID, Custom Card,
+Keyboard, Elevation (sombras `Elevation/*`).
 Se a tela precisar de um deles, **peça o componente** (ou leia a spec no Figma e crie seguindo o fluxo abaixo).
 
 ## Como adicionar ou alterar um componente
@@ -88,7 +94,8 @@ Se a tela precisar de um deles, **peça o componente** (ou leia a spec no Figma 
 
 - Cor do placeholder/ícone da busca na `MedicTopNavigation` (usa `color-translucent/text-secondary`, sem token no Figma).
 - Padding inferior da `MedicTopNavigation` (Figma varia de 6 a 9 pt por variante; o código usa 6).
-- Chevron da `MedicTableRow` é muito claro no tema claro (replica o Figma: 40% sobre token já translúcido).
+- Tokens `translucent/*` já carregam o alfa: **não** aplique `.opacity(...)` por cima (o "@70" do Figma é o mesmo alfa).
+- `MedicPagination`: o Figma fixa a cor por posição (provável defeito); o código segue a página atual.
 - Keyboard do Figma depende de biblioteca externa (Apple UI kit); não reproduzido.
 - Dynamic Type não implementado (estilos de tamanho fixo, como no Figma).
 - Descrições de variáveis no Figma são mecânicas (nome + valor); a intenção de uso de cada token ainda não foi escrita.

@@ -159,6 +159,73 @@ final class ComponentSnapshotTests: XCTestCase {
         }
     }
 
+    func testSegmentedPicker() throws {
+        try snapshot("segmented-picker", width: 390) {
+            VStack(spacing: 16) {
+                MedicSegmentedPicker(options: ["Dia", "Semana"], selection: .constant(0))
+                MedicSegmentedPicker(options: ["Dia", "Semana", "Mês"], selection: .constant(1))
+                MedicSegmentedPicker(options: ["Um", "Dois", "Três", "Quatro"], selection: .constant(3))
+                MedicSegmentedPicker(options: ["Um", "Dois", "Três"], selection: .constant(0), onNavigationBar: true)
+                    .padding(8)
+                    .background(MedicColor.navBarBg)
+            }
+            .padding(8)
+        }
+    }
+
+    func testPillButton() throws {
+        try snapshot("pill-button", width: 390) {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack(spacing: 12) {
+                    MedicPillButton("Todos", isSelected: true) {}
+                    MedicPillButton("Ativos", isSelected: false) {}
+                    MedicPillButton("Inativos", isSelected: false) {}.disabled(true)
+                    MedicPillButton("Bloqueado", isSelected: true) {}.disabled(true)
+                }
+                HStack(spacing: 12) {
+                    MedicPillButton("Início", subtitle: "12/11/2026", isSelected: false) {}
+                    MedicPillButton("Fim", subtitle: "20/11/2026", isSelected: true) {}
+                }
+            }
+            .padding(16)
+        }
+    }
+
+    func testSearchField() throws {
+        try snapshot("search-field", width: 375) {
+            VStack(spacing: 16) {
+                MedicSearchField(text: .constant(""))
+                MedicSearchField(text: .constant(""), trailingSystemImage: "barcode.viewfinder")
+                MedicSearchField(text: .constant(""), onCancel: {})
+            }
+            .padding(16)
+        }
+    }
+
+    func testSliderSelectPagination() throws {
+        try snapshot("slider-select-pagination", width: 375) {
+            VStack(alignment: .leading, spacing: 8) {
+                MedicSlider(value: .constant(0.4))
+                MedicSlider(value: .constant(0.7), minimumValueImage: "speaker.wave.1", maximumValueImage: "speaker.wave.3")
+                HStack(spacing: 24) {
+                    MedicSelect(isSelected: false)
+                    MedicSelect(isSelected: true)
+                    MedicSelect(isSelected: false).disabled(true)
+                    MedicSelect(isSelected: true).disabled(true)
+                }
+                .padding(.horizontal, 16)
+                HStack {
+                    Spacer()
+                    MedicPagination(currentPage: 0)
+                    MedicPagination(currentPage: 1)
+                    MedicPagination(currentPage: 2)
+                    Spacer()
+                }
+            }
+            .padding(.vertical, 16)
+        }
+    }
+
     // MARK: - Apoio
 
     private static func tabs(_ count: Int) -> [MedicTabItem] {
