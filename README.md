@@ -67,4 +67,5 @@ powershell -ExecutionPolicy Bypass -File tools/generate-tokens.ps1
 - **Spinner**: a rotação (1 s por volta, contínua) é decisão do código; o Figma é estático e o UIActivityIndicator gira em passos.
 - **Empty State**: o texto é centralizado (alinhamento não lido no Figma).
 - **Switch**: sombras do knob convertidas do blur do Figma para o raio do SwiftUI (blur ÷ 2).
-- Ainda sem Code Connect, sem elevação (sombras `Elevation/*`) e sem os demais componentes do Figma (SegmentedPicker, Select, Pill Button, Alerts, Action Sheet, Calendar, Keyboard etc.).
+- **Code Connect (Figma → SwiftUI)**: os 13 componentes da tabela acima estão mapeados no Figma (rótulo SwiftUI) para os arquivos deste repositório. O mapeamento é simples (componente → arquivo); ainda não há template com as propriedades. Os ícones não têm mapeamento individual (correspondem a `MedicIcon`).
+- Sem elevação (sombras `Elevation/*`) e sem os demais componentes do Figma (SegmentedPicker, Select, Pill Button, Alerts, Action Sheet, Calendar, Keyboard etc.).
