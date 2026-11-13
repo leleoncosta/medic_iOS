@@ -116,10 +116,11 @@ final class ComponentSnapshotTests: XCTestCase {
 
     private func snapshot<V: View>(_ name: String, width: CGFloat, @ViewBuilder content: () -> V) throws {
         let view = content()
-        for (suffix, style) in [("light", UIUserInterfaceStyle.light), ("dark", .dark)] {
-            let image = render(view, width: width, style: style)
+        for (suffix, scheme) in [("light", ColorScheme.light), ("dark", .dark)] {
+            let image = try XCTUnwrap(render(view, width: width, scheme: scheme), "\(name)-\(suffix): ImageRenderer não gerou imagem")
             XCTAssertGreaterThan(image.size.width, 0, "\(name)-\(suffix): imagem vazia")
             XCTAssertGreaterThan(image.size.height, 0, "\(name)-\(suffix): imagem vazia")
+            XCTAssertFalse(Self.isBlank(image), "\(name)-\(suffix): imagem em branco (uma cor só)")
 
             let data = try XCTUnwrap(image.pngData(), "\(name)-\(suffix): falha ao gerar PNG")
             let dir = ProcessInfo.processInfo.environment["SNAPSHOT_DIR"].map { URL(fileURLWithPath: $0) }
@@ -134,25 +135,37 @@ final class ComponentSnapshotTests: XCTestCase {
         }
     }
 
-    private func render<V: View>(_ view: V, width: CGFloat, style: UIUserInterfaceStyle) -> UIImage {
+    /// Renderiza com `ImageRenderer` (não depende de janela nem de cena, ao contrário de `drawHierarchy`,
+    /// que saiu em branco no CI). Atenção: views apoiadas em UIKit (como o `TextField`) podem aparecer
+    /// como um marcador amarelo nessa técnica; é limitação do `ImageRenderer`, não do componente.
+    private func render<V: View>(_ view: V, width: CGFloat, scheme: ColorScheme) -> UIImage? {
         // Fundo do app atrás do componente, como numa tela real.
         let framed = view
             .frame(width: width)
+            .fixedSize(horizontal: false, vertical: true)
             .background(MedicColor.surfaceSecondary)
-        let host = UIHostingController(rootView: framed)
-        host.overrideUserInterfaceStyle = style
-        let size = host.sizeThatFits(in: CGSize(width: width, height: .greatestFiniteMagnitude))
+            .environment(\.colorScheme, scheme)
+        let renderer = ImageRenderer(content: framed)
+        renderer.scale = 2
+        return renderer.uiImage
+    }
 
-        let window = UIWindow(frame: CGRect(origin: .zero, size: size))
-        window.overrideUserInterfaceStyle = style
-        window.rootViewController = host
-        window.makeKeyAndVisible()
-        host.view.frame = window.bounds
-        host.view.layoutIfNeeded()
-
-        let renderer = UIGraphicsImageRenderer(bounds: window.bounds)
-        return renderer.image { _ in
-            host.view.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
+    /// Verdadeiro se a imagem tem uma única cor (captura vazia).
+    private static func isBlank(_ image: UIImage) -> Bool {
+        guard let cg = image.cgImage else { return true }
+        let side = 24
+        var pixels = [UInt8](repeating: 0, count: side * side * 4)
+        guard let ctx = CGContext(
+            data: &pixels, width: side, height: side, bitsPerComponent: 8, bytesPerRow: side * 4,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { return true }
+        ctx.interpolationQuality = .none
+        ctx.draw(cg, in: CGRect(x: 0, y: 0, width: side, height: side))
+        var colors = Set<UInt32>()
+        for i in stride(from: 0, to: pixels.count, by: 4) {
+            colors.insert(UInt32(pixels[i]) << 24 | UInt32(pixels[i + 1]) << 16 | UInt32(pixels[i + 2]) << 8 | UInt32(pixels[i + 3]))
         }
+        return colors.count <= 1
     }
 }
