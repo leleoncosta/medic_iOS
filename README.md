@@ -88,6 +88,6 @@ powershell -ExecutionPolicy Bypass -File tools/generate-tokens.ps1
 - **Componentes do sistema iOS** (Alert, Action Sheet, Contextual Menu, Date Picker/Calendar, FaceID): decisão de usar o nativo do SwiftUI e não recriar a aparência; o mapeamento está no `AGENTS.md`.
 - **MessageBubble**: a cauda é aproximada (canto inferior com raio de 4 pt); hora de envio centralizada e fonte de 11 pt (Caption-2) assumidas; avatar do grupo opcional.
 - **Notification**: o estado Pressed usa a sobreposição `state-pressed-overlay` (o Figma não detalha); o fundo é sólido `surface/elevated` (o blur de 80 do Figma não é reproduzido, pois o fundo é opaco). O estado Options (Clear) fica para `.swipeActions`.
-- **IncomingCall**: tamanho dos glifos de recusar/aceitar assumido em 16 pt.
+- **IncomingCall**: tamanho dos glifos de recusar/aceitar assumido em 16 pt. O tipo do telefone ("mobile") usa `#EBEBF5` a 60% nos dois temas: o Figma usa `translucent/text-secondary`, que escurece no tema claro e some sobre o fundo escuro do banner.
 - **Custom Card**: dos 7 cartões do Figma, 3 viraram componentes próprios (Number, Profile Icon, Textarea Row); os de linha (Profile Icon + Two/Four Labels, Three Labels Row) e o Card Number + Two Fields compõem-se com `MedicCard` e `MedicTableRow`. O valor grande do `MedicNumberCard` usa 32 pt Semibold sem estilo de texto no Figma (altura de linha 37 lida do Figma, espaçamento 0 assumido).
 - Sem elevação (sombras `Elevation/*`) e sem o Keyboard do Figma.

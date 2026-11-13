@@ -29,7 +29,9 @@ public struct MedicIncomingCallBanner: View {
                 avatar
                 VStack(alignment: .leading, spacing: spacing.gapInlineXs) {
                     Text(name).medicText(.title3Regular).foregroundStyle(MedicColor.textOnPrimary).lineLimit(1)
-                    Text(phoneType).medicText(.title3Regular).foregroundStyle(MedicColor.translucentTextSecondary)
+                    // O fundo do banner é escuro nos dois temas. `translucent/text-secondary` escurece no tema claro e some sobre ele;
+                    // por isso usamos o valor claro (o Dark do token: #EBEBF5 a 60%) nos dois temas.
+                    Text(phoneType).medicText(.title3Regular).foregroundStyle(Color(hex: 0xEBEBF5, alpha: 0.6))
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }

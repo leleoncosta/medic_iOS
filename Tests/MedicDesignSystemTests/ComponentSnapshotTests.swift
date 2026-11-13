@@ -238,6 +238,8 @@ final class ComponentSnapshotTests: XCTestCase {
                 MedicIncomingCallBanner(name: "Dra. Ana Lima", phoneType: "mobile", onDecline: {}, onAccept: {})
             }
             .padding(16)
+            // Banners usam surface/elevated e surface/secondary: precisam de um fundo diferente (surface/primary) para aparecer.
+            .background(MedicColor.surfacePrimary)
         }
     }
 
@@ -250,6 +252,8 @@ final class ComponentSnapshotTests: XCTestCase {
                 MedicMessageBubble("Mensagem de grupo com um texto um pouco maior para quebrar linha no balão.", kind: .groupRecipient(senderName: "Carlos", avatar: nil), sendTime: "Hoje 8:15")
             }
             .padding(.vertical, 16)
+            // O balão recebido usa neutral-800 no escuro, igual ao fundo padrão do teste: troca para surface/primary.
+            .background(MedicColor.surfacePrimary)
         }
     }
 
