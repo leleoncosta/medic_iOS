@@ -51,6 +51,11 @@ Itens `kit-*` (ex.: `radiusKit10`) vêm do UI kit da Apple; use só onde o Figma
 | `MedicSlider(value:, in:, minimumValueImage:, maximumValueImage:, label:)` | Valor contínuo |
 | `MedicSelect(isSelected:)` | Indicador de seleção em círculo (leading de linha) |
 | `MedicPagination(numberOfPages:, currentPage:)` | Indicador de páginas |
+| `MedicNotification(title:, message:, time:, appIcon:, imagePreview:, isStacked:, action:)` | Banner in-app passivo (se exige decisão, use Alert nativo) |
+| `MedicIncomingCallBanner(name:, phoneType:, photo:, onDecline:, onAccept:)` | Banner de chamada recebida |
+| `MedicMessageBubble("texto", kind: .sender/.recipient/.groupRecipient(senderName:, avatar:), sendTime:, deliveryStatus:, showsTail:)` | Conversa entre duas partes |
+| `MedicCard(shadow: .subtle/.soft/.none) { }` | Container de cartão de registro (compõe `MedicTableRow`) |
+| `MedicNumberCard(label:, title:, value:)`, `MedicProfileCard(initials:, name:, subtitle:)`, `MedicTextAreaCard(title:, text:, placeholder:)` | Cartões do Figma (Number, Profile Icon, Textarea Row) |
 
 Estados (Pressed, Focus, Disabled) são automáticos ou vêm de `.disabled(true)`; não os desenhe à mão.
 Slide Action de linha: use `.swipeActions` do SwiftUI (o `MedicTableRow` não o inclui).
@@ -74,9 +79,23 @@ Slide Action de linha: use `.swipeActions` do SwiftUI (o `MedicTableRow` não o 
 
 ## Lacunas (não existem neste pacote; não improvise com o mesmo nome)
 
-Alert, Action Sheet, Contextual Menu, Notification, Messages, Date Picker/Calendar, FaceID, Custom Card,
-Keyboard, Elevation (sombras `Elevation/*`).
+Keyboard (depende de biblioteca externa do Figma) e Elevation (sombras `Elevation/*`); Notification com `Options`
+(Clear/Options: use `.swipeActions`); os tipos "Two Lines" da opção do SegmentedPicker.
 Se a tela precisar de um deles, **peça o componente** (ou leia a spec no Figma e crie seguindo o fluxo abaixo).
+
+## Componentes do sistema iOS: use o nativo (não há `Medic*` para eles)
+
+O Figma redesenha estas telas a partir do kit da Apple. No app, use as APIs do sistema (acessibilidade, animação,
+foco e Dynamic Type já vêm prontos). Siga as regras de uso da tabela acima.
+
+| Figma | SwiftUI nativo | Observações |
+|---|---|---|
+| Alert (1 a 3 ações) | `.alert(_:isPresented:actions:message:)` | Ação destrutiva com `Button(role: .destructive)`; ação preferida com `.keyboardShortcut(.defaultAction)`. Máx. 2-3 ações |
+| Action Sheet | `.confirmationDialog(_:isPresented:titleVisibility:actions:message:)` | Sempre inclua `Button("Cancelar", role: .cancel)` |
+| Contextual Menu | `.contextMenu { ... }` ou `Menu { ... } label: { ... }` | Toque longo no objeto: `.contextMenu`; botão "...": `Menu` |
+| Calendar / Picker (Date Picker) | `DatePicker(_:selection:displayedComponents:)` | `.datePickerStyle(.graphical)` (Calendar) ou `.wheel` (Picker) |
+| FaceID | `LAContext().evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason:)` (LocalAuthentication) | Exige `NSFaceIDUsageDescription` no Info.plist. Nunca simule a interface de FaceID |
+| Slide Action (TableRow) e Options (Notification) | `.swipeActions` em `List` | Até 2 ações frequentes por linha |
 
 ## Como adicionar ou alterar um componente
 

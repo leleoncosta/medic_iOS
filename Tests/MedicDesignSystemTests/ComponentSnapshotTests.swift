@@ -228,6 +228,47 @@ final class ComponentSnapshotTests: XCTestCase {
         }
     }
 
+    func testNotifications() throws {
+        try snapshot("notification", width: 390) {
+            VStack(spacing: 16) {
+                MedicNotification(title: "Resultado disponível", message: "O exame de Maria Souza já pode ser consultado.", time: "34 min", appIcon: Image(systemName: "app.fill"))
+                MedicNotification(title: "Nova mensagem", message: "Equipe assistencial: confirme o horário da consulta.", time: "agora", appIcon: Image(systemName: "app.fill"), imagePreview: Image(systemName: "photo"))
+                MedicNotification(title: "Lembrete", message: "Medicação das 14h.", time: "1 h", isStacked: true)
+                MedicNotification(title: "Toque para abrir", message: "Com ação (estado Pressed ao tocar).", action: {})
+                MedicIncomingCallBanner(name: "Dra. Ana Lima", phoneType: "mobile", onDecline: {}, onAccept: {})
+            }
+            .padding(16)
+        }
+    }
+
+    func testMessageBubbles() throws {
+        try snapshot("message-bubble", width: 390) {
+            VStack(spacing: 12) {
+                MedicMessageBubble("Vamos almoçar? Que tal 12h30?", kind: .sender, sendTime: "Ontem 9:41", deliveryStatus: "Lida 10:02")
+                MedicMessageBubble("Sem cauda", kind: .sender, showsTail: false)
+                MedicMessageBubble("Pode ser! Combinado.", kind: .recipient)
+                MedicMessageBubble("Mensagem de grupo com um texto um pouco maior para quebrar linha no balão.", kind: .groupRecipient(senderName: "Carlos", avatar: nil), sendTime: "Hoje 8:15")
+            }
+            .padding(.vertical, 16)
+        }
+    }
+
+    func testCards() throws {
+        try snapshot("cards", width: 390) {
+            VStack(spacing: 16) {
+                MedicNumberCard(label: "Faturamento", title: "Mês atual", value: "R$ 12.345,00")
+                MedicProfileCard(initials: "LM", name: "Dra. Lúcia Mendes", subtitle: "Cirurgia Geral")
+                MedicCard(shadow: .soft) {
+                    MedicTableRow("Maria Souza", subtitle: "Cardiologia", detail: "Sala 12", date: "12/11", showChevron: true, showSeparator: false) {
+                        MedicIcon("person.circle", color: MedicColor.iconBrandSecondary)
+                    }
+                }
+                MedicTextAreaCard(title: "Observações", text: .constant(""), placeholder: "Escreva aqui")
+            }
+            .padding(16)
+        }
+    }
+
     // MARK: - Apoio
 
     private static func tabs(_ count: Int) -> [MedicTabItem] {

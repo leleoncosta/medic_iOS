@@ -57,6 +57,13 @@ powershell -ExecutionPolicy Bypass -File tools/generate-tokens.ps1
 | `MedicSlider` | Slider `10:3772` | Icons (False, True via `minimumValueImage`/`maximumValueImage`) |
 | `MedicSelect` | Select `71:1217` | Selected (False, True), State (Disabled via `.disabled`); só o indicador de 22 pt |
 | `MedicPagination` | Pagination `71:1086` | Número de páginas e página atual |
+| `MedicNotification` | Notification `10:4357` | Default, Image (miniatura), Stacked, Pressed (com `action`); sem Options |
+| `MedicIncomingCallBanner` | Notification-incomingCall `10:4326` | Contato, tipo, recusar e aceitar |
+| `MedicMessageBubble` | MessageBubble `10:3985` | Sender, Recipient, Group Recipient; hora, entrega e cauda (aproximada) |
+| `MedicCard` | página Custom Card (container) | Sombra subtle ou soft; compõe `MedicTableRow` |
+| `MedicNumberCard` | Card / Number `219:1643` | Rótulo, título e valor grande |
+| `MedicProfileCard` | Card / Profile Icon `441:1468` | Avatar com iniciais, nome e especialidade |
+| `MedicTextAreaCard` | Card / Textarea Row `580:1531` | Cabeçalho + texto de várias linhas |
 
 ## O que NÃO está coberto (decisões e pendências)
 
@@ -78,4 +85,9 @@ powershell -ExecutionPolicy Bypass -File tools/generate-tokens.ps1
 - **SegmentedPicker**: o segmento selecionado usa `surface/elevated` (o do componente interno do Figma; a instância usa `surface/primary`, que no escuro fica ainda mais escuro). No escuro o segmento continua um pouco mais escuro que o trilho: um segmento mais claro exigiria um token novo (decisão de design). As divisórias entre segmentos não selecionados seguem o padrão do iOS (estão ocultas no componente do Figma). Os tipos "Two Lines" da opção não foram implementados.
 - **Select**: o check usa o SF Symbol `checkmark` em branco (o desenho vetorial do Figma não foi reproduzido); o anel mede ~1,6 pt. O preenchimento selecionado usa `action/primary/bg` (como Checkbox e Radio); o Figma usa `action/primary/bg-pressed`, que clareia no escuro e tira o contraste do check. Se o Figma for corrigido para `bg`, os dois ficam iguais.
 - **Pill Button**: título em Semibold quando selecionado ou com duas linhas; as sombras seguem o Figma (preto 25%, y 4, blur 4). A 2ª linha do Pill Button selecionado usa `neutral-50` nos dois temas: o Figma usa `surface/secondary`, que escurece no tema escuro e perde contraste sobre o azul. Ideal: corrigir o token no Figma.
-- Sem elevação (sombras `Elevation/*`) e sem os demais componentes do Figma (Alerts, Action Sheet, Contextual Menu, Notification, Messages, Date Picker, FaceID, Custom Card, Keyboard etc.).
+- **Componentes do sistema iOS** (Alert, Action Sheet, Contextual Menu, Date Picker/Calendar, FaceID): decisão de usar o nativo do SwiftUI e não recriar a aparência; o mapeamento está no `AGENTS.md`.
+- **MessageBubble**: a cauda é aproximada (canto inferior com raio de 4 pt); hora de envio centralizada e fonte de 11 pt (Caption-2) assumidas; avatar do grupo opcional.
+- **Notification**: o estado Pressed usa a sobreposição `state-pressed-overlay` (o Figma não detalha); o fundo é sólido `surface/elevated` (o blur de 80 do Figma não é reproduzido, pois o fundo é opaco). O estado Options (Clear) fica para `.swipeActions`.
+- **IncomingCall**: tamanho dos glifos de recusar/aceitar assumido em 16 pt.
+- **Custom Card**: dos 7 cartões do Figma, 3 viraram componentes próprios (Number, Profile Icon, Textarea Row); os de linha (Profile Icon + Two/Four Labels, Three Labels Row) e o Card Number + Two Fields compõem-se com `MedicCard` e `MedicTableRow`. O valor grande do `MedicNumberCard` usa 32 pt Semibold sem estilo de texto no Figma (altura de linha 37 lida do Figma, espaçamento 0 assumido).
+- Sem elevação (sombras `Elevation/*`) e sem o Keyboard do Figma.
