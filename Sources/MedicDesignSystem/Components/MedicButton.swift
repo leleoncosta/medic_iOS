@@ -49,10 +49,11 @@ struct MedicButtonStyle: ButtonStyle {
     let fullWidth: Bool
 
     func makeBody(configuration: Configuration) -> some View {
-        Body(configuration: configuration, kind: kind, size: size, fullWidth: fullWidth)
+        StyledLabel(configuration: configuration, kind: kind, size: size, fullWidth: fullWidth)
     }
 
-    private struct Body: View {
+    // Não pode se chamar `Body`: conflita com o tipo associado `Body` de ButtonStyle.
+    private struct StyledLabel: View {
         let configuration: Configuration
         let kind: MedicButtonKind
         let size: MedicButtonSize
