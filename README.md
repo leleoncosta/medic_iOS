@@ -7,6 +7,8 @@ a primeira compilação no Xcode pode apontar ajustes.
 Para compilar, use o Xcode com um destino iOS (simulador). `swift build` no terminal do Mac falha, porque o pacote
 usa UIKit e só declara a plataforma iOS.
 
+Para IA e para quem estende o pacote: leia o `AGENTS.md` (regras, catálogo, quando usar o quê e como adicionar componentes).
+
 ## Testar sem Mac (GitHub Actions)
 
 O workflow `.github/workflows/ios.yml` roda a cada push na `main` (e manualmente em Actions → iOS → Run workflow).
