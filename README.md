@@ -25,7 +25,8 @@ Ele compila o pacote num Mac virtual, roda `Tests/MedicDesignSystemTests` no sim
 | `Sources/MedicDesignSystem/Components` | Componentes do núcleo (abaixo) |
 | `Sources/MedicDesignSystem/Previews` | Galeria para conferir contra o Figma |
 | `tokens/tokens.json` | Tokens em formato DTCG, para o Style Dictionary |
-| `tools/` | `tokens-data.txt` (fonte única) e `generate-tokens.ps1` (gera Swift e JSON) |
+| `tools/` | `tokens-data.txt` (fonte única) e `generate-tokens.ps1` (gera Swift e JSON); `generate-figma-icon-templates.ps1` (templates dos ícones) |
+| `figma/` e `figma.config.json` | Templates do Code Connect (`.figma.ts`), **ainda não publicados nem testados**; veja `figma/README.md` |
 
 Para regenerar os tokens depois de mudar `tools/tokens-data.txt`:
 
