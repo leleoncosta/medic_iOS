@@ -52,7 +52,9 @@ public struct MedicPillButton: View {
         }
 
         private var subtitleColor: Color {
-            if isSelected { return MedicColor.surfaceSecondary }
+            // O Figma usa `surface/secondary` (claro no tema claro, escuro no escuro: ruim sobre o azul).
+            // Usamos o valor claro nos dois temas (`neutral-50`, o Light de `surface/secondary`).
+            if isSelected { return MedicPalette.neutral50 }
             return isEnabled ? MedicColor.translucentTextStrong : MedicColor.textDisabled
         }
 
