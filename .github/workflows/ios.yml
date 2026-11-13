@@ -30,7 +30,10 @@ jobs:
           echo "Simulador: $UDID"
 
       - name: Esquemas do pacote
-        run: xcodebuild -list
+        run: |
+          xcodebuild -list 2>&1 | tee schemes.txt
+          MSG=$(sed -e 's/%/%25/g' -e 's/\r//g' schemes.txt | awk '{printf "%s%%0A", $0}')
+          echo "::notice title=Esquemas do pacote::${MSG}"
 
       - name: Compilar e testar
         env:
@@ -42,7 +45,7 @@ jobs:
             -scheme MedicDesignSystem-Package \
             -destination "id=${{ steps.sim.outputs.udid }}" \
             -resultBundlePath build/Tests.xcresult \
-            | tee build/xcodebuild.log
+            2>&1 | tee build/xcodebuild.log
 
       - name: Resumir erros do build (anotação pública)
         if: failure()
