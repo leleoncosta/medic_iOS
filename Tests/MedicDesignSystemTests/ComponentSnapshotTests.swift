@@ -223,6 +223,8 @@ final class ComponentSnapshotTests: XCTestCase {
                 }
             }
             .padding(.vertical, 16)
+            // O knob usa surface/elevated; sobre o fundo padrão do teste (surface/secondary) ele some no escuro.
+            .background(MedicColor.surfacePrimary)
         }
     }
 

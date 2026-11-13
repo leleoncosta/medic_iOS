@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Figma: SegmentedPicker (2611:5973) e _SegmentedPicker-option (2611:5933). 2 a 4 opções; Selected = qual segmento.
-/// Altura 32 pt, trilho `color-translucent/fill-tertiary`, segmento selecionado com fundo `color-surface/primary`,
+/// Altura 32 pt, trilho `color-translucent/fill-tertiary`, segmento selecionado com fundo `color-surface/elevated` (o do componente `_SegmentedPicker-option`),
 /// borda de 0,5 pt a 4% e a sombra `Control/Segmented-Thumb`.
 /// Use para alternar visões do MESMO conteúdo (2 a 5 opções); para seções do app, use `MedicTabBar`.
 public struct MedicSegmentedPicker: View {
@@ -44,7 +44,7 @@ public struct MedicSegmentedPicker: View {
                 .background {
                     if selected {
                         RoundedRectangle(cornerRadius: spacing.radiusKit693)
-                            .fill(MedicColor.surfacePrimary)
+                            .fill(MedicColor.surfaceElevated)
                             .overlay(RoundedRectangle(cornerRadius: spacing.radiusKit693).strokeBorder(Color.black.opacity(0.04), lineWidth: 0.5))
                             .shadow(color: .black.opacity(0.04), radius: 0.5, x: 0, y: 3)
                             .shadow(color: .black.opacity(0.12), radius: 4, x: 0, y: 3)

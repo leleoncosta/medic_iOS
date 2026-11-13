@@ -12,7 +12,9 @@ public struct MedicSelect: View {
     public var body: some View {
         ZStack {
             if isSelected {
-                Circle().fill(isEnabled ? MedicColor.actionPrimaryBgPressed : MedicColor.actionPrimaryBgDisabled)
+                // O Figma usa `action/primary/bg-pressed` aqui, que CLAREIA no tema escuro (check branco sem contraste)
+                // e destoa do Checkbox/Radio. Usamos `action/primary/bg`, como eles.
+                Circle().fill(isEnabled ? MedicColor.actionPrimaryBg : MedicColor.actionPrimaryBgDisabled)
                 Image(systemName: "checkmark")
                     .font(.system(size: 12, weight: .bold))
                     .foregroundStyle(MedicColor.actionPrimaryText)
