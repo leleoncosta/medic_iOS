@@ -73,7 +73,7 @@ powershell -ExecutionPolicy Bypass -File tools/generate-tokens.ps1
 - **Spinner**: a rotação (1 s por volta, contínua) é decisão do código; o Figma é estático e o UIActivityIndicator gira em passos.
 - **Empty State**: o texto é centralizado (alinhamento não lido no Figma).
 - **Switch**: sombras do knob convertidas do blur do Figma para o raio do SwiftUI (blur ÷ 2).
-- **Code Connect (Figma → SwiftUI)**: os 13 componentes da tabela acima estão mapeados no Figma (rótulo SwiftUI) para os arquivos deste repositório. O mapeamento é simples (componente → arquivo); ainda não há template com as propriedades. Os ícones não têm mapeamento individual (correspondem a `MedicIcon`).
+- **Code Connect (Figma → SwiftUI)**: os 19 componentes da tabela acima (todos menos `MedicIcon`) estão mapeados no Figma (rótulo SwiftUI) para os arquivos deste repositório. O mapeamento é simples (componente → arquivo); ainda não há template com as propriedades. Os ícones não têm mapeamento individual (correspondem a `MedicIcon`).
 - **Pagination**: no Figma a cor da bolinha é fixa por posição (a 2ª é sempre `icon/brand`) e só a opacidade segue a página atual, o que parece um defeito do desenho. O código usa `icon/brand` na página atual e `pagination-inactive` a 30% nas outras. Confirmar com o design.
 - **SegmentedPicker**: o segmento selecionado usa `surface/primary` (como na instância do Figma; o componente interno usa `surface/elevated`). As divisórias entre segmentos não selecionados seguem o padrão do iOS (estão ocultas no componente do Figma). Os tipos "Two Lines" da opção não foram implementados.
 - **Select**: o check usa o SF Symbol `checkmark` em branco (o desenho vetorial do Figma não foi reproduzido); o anel mede ~1,6 pt.
