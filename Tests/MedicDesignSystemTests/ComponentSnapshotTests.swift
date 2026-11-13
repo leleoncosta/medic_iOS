@@ -102,6 +102,61 @@ final class ComponentSnapshotTests: XCTestCase {
         }
     }
 
+    func testCheckboxAndRadio() throws {
+        try snapshot("selection-controls", width: 375) {
+            VStack(alignment: .leading, spacing: 0) {
+                MedicCheckbox(isOn: .constant(false), label: "Desmarcado")
+                MedicCheckbox(isOn: .constant(true), label: "Marcado")
+                MedicCheckbox(isOn: .constant(false), label: "Parcial", isIndeterminate: true)
+                MedicCheckbox(isOn: .constant(false), label: "Desabilitado").disabled(true)
+                MedicCheckbox(isOn: .constant(true), label: "Marcado desabilitado").disabled(true)
+                MedicRadio("Opção A", isSelected: true) {}
+                MedicRadio("Opção B", isSelected: false) {}
+                MedicRadio("Opção desabilitada", isSelected: true) {}.disabled(true)
+                MedicRadio("Opção desabilitada", isSelected: false) {}.disabled(true)
+            }
+            .padding(.horizontal, 16)
+        }
+    }
+
+    func testSwitch() throws {
+        try snapshot("switch", width: 375) {
+            HStack(spacing: 24) {
+                MedicSwitch(isOn: .constant(true), label: "Ligado")
+                MedicSwitch(isOn: .constant(false), label: "Desligado")
+                MedicSwitch(isOn: .constant(true), label: "Ligado desabilitado").disabled(true)
+                MedicSwitch(isOn: .constant(false), label: "Desligado desabilitado").disabled(true)
+            }
+            .padding(16)
+        }
+    }
+
+    func testSpinnerAndSkeleton() throws {
+        try snapshot("spinner-skeleton", width: 375) {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack(spacing: 24) {
+                    MedicSpinner(size: .small)
+                    MedicSpinner(size: .large)
+                }
+                MedicSkeleton(.line)
+                MedicSkeleton(.avatar)
+                MedicSkeleton(.block)
+                MedicSkeleton(.row)
+            }
+            .padding(.vertical, 16)
+            .padding(.horizontal, 16)
+        }
+    }
+
+    func testEmptyState() throws {
+        try snapshot("empty-state", width: 375) {
+            VStack(spacing: 16) {
+                MedicEmptyState("Nenhum paciente", message: "Quando houver pacientes, eles aparecem aqui.", actionTitle: "Adicionar") {}
+                MedicEmptyState("Sem resultados", message: "Tente outra busca.", systemImage: "magnifyingglass", size: .compact)
+            }
+        }
+    }
+
     // MARK: - Apoio
 
     private static func tabs(_ count: Int) -> [MedicTabItem] {

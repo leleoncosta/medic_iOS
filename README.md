@@ -43,6 +43,12 @@ powershell -ExecutionPolicy Bypass -File tools/generate-tokens.ps1
 | `MedicTopNavigation` | TopNavigation `10:980` | Title, Left Title/Back, Right (slot), Large Title, Search, Segmented (slot `bottom`) |
 | `MedicTabBar` | TabBar `10:3527` + TabBar-item `10:3496` | 2 a 5 abas, aba selecionada |
 | `MedicIcon` | Icon / * (página Iconography) | Glifo SF Symbol 22 pt, cor padrão `color-icon/default` |
+| `MedicCheckbox` | Checkbox `3007:27` | Selected (False, True, Indeterminate), State (Default, Pressed automático, Focus, Disabled via `.disabled`), Label |
+| `MedicRadio` | Radio `3007:43` | Selected (False, True), State (idem), Label; o grupo é de quem usa |
+| `MedicSwitch` | Switch `10:3750` | On (True, False), State (Default, Disabled via `.disabled`) |
+| `MedicSpinner` | Spinner `3011:21` | Size (Small 20, Large 37); gira, e para com "Reduzir Movimento" |
+| `MedicSkeleton` | Skeleton `3014:14` | Type (Line, Avatar, Block, Row); estático |
+| `MedicEmptyState` | Empty State `3004:28` | Size (Large, Compact), ícone opcional, mensagem, ação opcional |
 
 ## O que NÃO está coberto (decisões e pendências)
 
@@ -55,4 +61,8 @@ powershell -ExecutionPolicy Bypass -File tools/generate-tokens.ps1
 - **Chevron do TableRow**: no Figma é `color-translucent/divider` com opacidade 40% aplicada na instância; replicado como está.
 - **Dynamic Type**: os estilos usam tamanho fixo, como no Figma.
 - **iOS mínimo**: 16 (escolha do assistente; `Package.swift`).
-- Ainda sem Code Connect, sem elevação (sombras `Elevation/*`) e sem os demais componentes do Figma (Checkbox, Radio, Switch, Spinner, Skeleton, Empty State etc.).
+- **Checkbox/Radio**: a camada Pressed Overlay cobre só a caixa de 22 pt (medido no Figma), com 15% de opacidade. O check e o traço usam as medidas do Figma (traço de 2 pt, pontas arredondadas).
+- **Spinner**: a rotação (1 s por volta, contínua) é decisão do código; o Figma é estático e o UIActivityIndicator gira em passos.
+- **Empty State**: o texto é centralizado (alinhamento não lido no Figma).
+- **Switch**: sombras do knob convertidas do blur do Figma para o raio do SwiftUI (blur ÷ 2).
+- Ainda sem Code Connect, sem elevação (sombras `Elevation/*`) e sem os demais componentes do Figma (SegmentedPicker, Select, Pill Button, Alerts, Action Sheet, Calendar, Keyboard etc.).
