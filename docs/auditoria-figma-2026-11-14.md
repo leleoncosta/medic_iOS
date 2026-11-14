@@ -9,9 +9,12 @@
 > **Atualização (2026-11-14), decisão sobre variáveis e estilos:** foram removidas 38 variáveis nunca usadas e que não
 > vão para o Swift: Typography (9), easings (5), Semantic/Motion (6) e Elevation (18). A coleção `Semantic/Motion`
 > ficou vazia (400 → 363 variáveis). Mantidos: Spacing, Semantic/Spacing e durações (o Swift usa), cores Support, todos
-> os estilos de texto (22 sem uso) e os 10 estilos de efeito Elevation. Pendências: apagar a coleção vazia e as linhas
-> das páginas Typography e Elevation & Motion que descrevem variáveis removidas. As tabelas das seções 2 e 3 abaixo
-> refletem o estado antes da remoção.
+> os estilos de texto (22 sem uso) e os 10 estilos de efeito Elevation.
+>
+> **Atualização (2026-11-14), limpeza final:** a coleção `Semantic/Motion` (vazia) foi apagada e a documentação órfã
+> saiu das páginas Typography (font-size/10, font-size/14 e o bloco "Line Height (%)") e Elevation & Motion (blocos
+> "Shadow Opacity Scale" e "Blur"); dois textos foram corrigidos (contagem de tokens e nota de limitação).
+> As tabelas das seções 2 e 3 abaixo refletem o estado antes da remoção.
 
 Somente leitura: **nada foi apagado nem alterado.** Arquivo `NdxangiWk18nefmJvebkTW`: 109 componentes, 401 variáveis em
 15 coleções, 54 estilos locais (38 de texto, 13 de efeito, 3 de grade), 42 páginas.
