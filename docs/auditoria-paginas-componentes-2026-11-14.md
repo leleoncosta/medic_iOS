@@ -16,7 +16,14 @@
 > os chips `_Component Type`), cerca de 60 em 17 páginas, foram desacopladas e viraram quadros locais, sem mudança visual.
 > Por decisão do usuário, os componentes locais reutilizáveis (Doc Header e chips) e a faixa de metadados foram para a
 > Fase C: as fontes SF não estão disponíveis para edição na automação, então componentes novos teriam de usar outra fonte.
-> Restam fora do arquivo apenas as teclas do Keyboard (biblioteca externa). As fases C e D seguem pendentes.
+> Restam fora do arquivo apenas as teclas do Keyboard (biblioteca externa).
+>
+> **Atualização (2026-11-14), Fase C executada (ficha técnica):** 47 fichas, uma por componente público (sem ícones e sem
+> internos com prefixo `_`), ao lado do título de cada componente. Blocos: status, Swift (nome e link do arquivo, ou a API
+> nativa), propriedades (tipo, opções, padrão e parâmetro Swift), "Quando usar / não usar" (das Usage Guidelines, só onde há
+> regra) e tokens usados. Status por fatos: 25 "No código", 11 "Referência de design", 6 "Parte de outro componente" e
+> 5 "Sem uso". O texto novo usa Inter e Roboto Mono (as fontes SF não estão disponíveis na automação). Ainda não há blocos
+> de acessibilidade nem versão ("desde vX"), e a Fase D (Light e Dark lado a lado e agrupamento por categoria) segue pendente.
 
 Somente leitura: **nada foi alterado no Figma.** Escopo: as 26 páginas do grupo COMPONENTS (mais Iconography e Templates)
 do arquivo `NdxangiWk18nefmJvebkTW`.
