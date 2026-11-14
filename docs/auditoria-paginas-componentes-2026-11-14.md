@@ -10,7 +10,13 @@
 >   (Roboto Mono; as outras páginas usam SF Mono, indisponível para edição).
 > - **Cover:** 104 componentes, 363 tokens (variáveis), 35 páginas. O contador de snapshots não foi alterado.
 > - **Correção deste relatório:** o arquivo tem **40 páginas** (35 com conteúdo, sem 3 separadores e 2 títulos de grupo),
->   e não 42 e 37, como estava escrito. As fases B, C e D seguem pendentes.
+>   e não 42 e 37, como estava escrito.
+>
+> **Atualização (2026-11-14), Fase B executada (desacoplar):** as instâncias remotas dos cabeçalhos (`_Header`, `_Icon` e
+> os chips `_Component Type`), cerca de 60 em 17 páginas, foram desacopladas e viraram quadros locais, sem mudança visual.
+> Por decisão do usuário, os componentes locais reutilizáveis (Doc Header e chips) e a faixa de metadados foram para a
+> Fase C: as fontes SF não estão disponíveis para edição na automação, então componentes novos teriam de usar outra fonte.
+> Restam fora do arquivo apenas as teclas do Keyboard (biblioteca externa). As fases C e D seguem pendentes.
 
 Somente leitura: **nada foi alterado no Figma.** Escopo: as 26 páginas do grupo COMPONENTS (mais Iconography e Templates)
 do arquivo `NdxangiWk18nefmJvebkTW`.
