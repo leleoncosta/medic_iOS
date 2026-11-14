@@ -17,7 +17,7 @@
 > As tabelas das seções 2 e 3 abaixo refletem o estado antes da remoção.
 
 Somente leitura: **nada foi apagado nem alterado.** Arquivo `NdxangiWk18nefmJvebkTW`: 109 componentes, 401 variáveis em
-15 coleções, 54 estilos locais (38 de texto, 13 de efeito, 3 de grade), 42 páginas.
+15 coleções, 54 estilos locais (38 de texto, 13 de efeito, 3 de grade), 40 páginas (a versão anterior deste relatório dizia 42, por engano).
 
 Como ler os números:
 - **Uso real** = a variável ou o estilo aparece em componentes, templates ou na página WIP (fora das páginas de
