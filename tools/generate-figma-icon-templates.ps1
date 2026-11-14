@@ -2,7 +2,8 @@
 # Cada template mostra MedicIcon("<símbolo>") e expõe o nome em metadata.props.symbol, para os templates de
 # Button, TextField, TableRow e Empty State trocarem o ícone por systemImage: "<símbolo>".
 # Uso (na raiz do repositório):  powershell -ExecutionPolicy Bypass -File tools/generate-figma-icon-templates.ps1
-# Fonte: componentes "Icon / *" da página Iconography do Figma (49 de 52; sem Line, two.checkmark e circle.fill.body).
+# Fonte: os 49 componentes "Icon / *" da página Iconography do Figma (Line, two.checkmark e circle.fill.body foram
+# removidos do Figma em 2026-11-14).
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $dir = Join-Path $root 'figma/icons'
